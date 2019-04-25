@@ -4,7 +4,7 @@
 #
 Name     : not-ffmpeg
 Version  : 1
-Release  : 7
+Release  : 8
 URL      : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-n4.1.1-reduced.tar.xz
 Source0  : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-n4.1.1-reduced.tar.xz
 Summary  : No detailed summary available
@@ -86,7 +86,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1556142136
+export SOURCE_DATE_EPOCH=1556212466
 export LDFLAGS="${LDFLAGS} -fno-lto"
 %configure --disable-static --extra-ldflags='-ldl' \
 --disable-everything \
@@ -127,7 +127,7 @@ export LDFLAGS="${LDFLAGS} -fno-lto"
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1556142136
+export SOURCE_DATE_EPOCH=1556212466
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/not-ffmpeg
 cp COPYING.LGPLv2.1 %{buildroot}/usr/share/package-licenses/not-ffmpeg/COPYING.LGPLv2.1
