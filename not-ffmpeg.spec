@@ -4,7 +4,7 @@
 #
 Name     : not-ffmpeg
 Version  : 1
-Release  : 9
+Release  : 10
 URL      : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-n4.1.1-reduced.tar.xz
 Source0  : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-n4.1.1-reduced.tar.xz
 Summary  : No detailed summary available
@@ -16,6 +16,7 @@ Requires: not-ffmpeg-lib = %{version}-%{release}
 Requires: not-ffmpeg-license = %{version}-%{release}
 BuildRequires : pkgconfig(libmfx)
 BuildRequires : pkgconfig(libva)
+BuildRequires : pkgconfig(openssl)
 BuildRequires : pkgconfig(sdl2)
 BuildRequires : pkgconfig(vorbis)
 BuildRequires : pkgconfig(vpx)
@@ -86,7 +87,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1556567174
+export SOURCE_DATE_EPOCH=1557521035
 export LDFLAGS="${LDFLAGS} -fno-lto"
 %configure --disable-static --extra-ldflags='-ldl' \
 --disable-everything \
@@ -123,11 +124,13 @@ export LDFLAGS="${LDFLAGS} -fno-lto"
 --disable-programs \
 --enable-ffmpeg \
 --enable-ffplay \
---enable-sdl2
+--enable-sdl2 \
+--enable-network \
+--enable-openssl
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1556567174
+export SOURCE_DATE_EPOCH=1557521035
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/not-ffmpeg
 cp COPYING.LGPLv2.1 %{buildroot}/usr/share/package-licenses/not-ffmpeg/COPYING.LGPLv2.1
