@@ -4,7 +4,7 @@
 #
 Name     : not-ffmpeg
 Version  : 1
-Release  : 10
+Release  : 12
 URL      : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-n4.1.1-reduced.tar.xz
 Source0  : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-n4.1.1-reduced.tar.xz
 Summary  : No detailed summary available
@@ -14,12 +14,14 @@ Requires: not-ffmpeg-bin = %{version}-%{release}
 Requires: not-ffmpeg-data = %{version}-%{release}
 Requires: not-ffmpeg-lib = %{version}-%{release}
 Requires: not-ffmpeg-license = %{version}-%{release}
+BuildRequires : gmp-dev
 BuildRequires : pkgconfig(libmfx)
 BuildRequires : pkgconfig(libva)
 BuildRequires : pkgconfig(openssl)
 BuildRequires : pkgconfig(sdl2)
 BuildRequires : pkgconfig(vorbis)
 BuildRequires : pkgconfig(vpx)
+BuildRequires : rtmpdump-dev
 Patch1: 0001-configure-do-not-die-if-unknown-option-is-found.patch
 Patch2: 0001-not-ffmpeg-fixes-to-compilation-for-this-version.patch
 
@@ -87,8 +89,12 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1557521035
-export LDFLAGS="${LDFLAGS} -fno-lto"
+export SOURCE_DATE_EPOCH=1559864930
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 %configure --disable-static --extra-ldflags='-ldl' \
 --disable-everything \
 --enable-avcodec \
@@ -126,11 +132,12 @@ export LDFLAGS="${LDFLAGS} -fno-lto"
 --enable-ffplay \
 --enable-sdl2 \
 --enable-network \
---enable-openssl
+--enable-openssl \
+--enable-librtmp
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1557521035
+export SOURCE_DATE_EPOCH=1559864930
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/not-ffmpeg
 cp COPYING.LGPLv2.1 %{buildroot}/usr/share/package-licenses/not-ffmpeg/COPYING.LGPLv2.1

@@ -36,3 +36,4 @@
 --enable-sdl2
 --enable-network
 --enable-openssl
+--enable-librtmp
