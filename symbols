@@ -453,6 +453,9 @@ libavformat.so.58:avio_write
 libavformat.so.58:avio_write_marker
 libavformat.so.58:avpriv_io_delete
 libavformat.so.58:avpriv_io_move
+libavformat.so.58:avpriv_mpegts_parse_close
+libavformat.so.58:avpriv_mpegts_parse_open
+libavformat.so.58:avpriv_mpegts_parse_packet
 libavformat.so.58:avpriv_new_chapter
 libavformat.so.58:avpriv_register_devices
 libavformat.so.58:avpriv_set_pts_info
