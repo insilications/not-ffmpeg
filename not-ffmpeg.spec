@@ -4,7 +4,7 @@
 #
 Name     : not-ffmpeg
 Version  : 1
-Release  : 16
+Release  : 17
 URL      : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-n4.1.1-reduced.tar.xz
 Source0  : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-n4.1.1-reduced.tar.xz
 Summary  : No detailed summary available
@@ -24,6 +24,7 @@ BuildRequires : pkgconfig(vpx)
 BuildRequires : rtmpdump-dev
 Patch1: 0001-configure-do-not-die-if-unknown-option-is-found.patch
 Patch2: 0001-not-ffmpeg-fixes-to-compilation-for-this-version.patch
+Patch3: CVE-2019-12730.patch
 
 %description
 SPARC optimizations have been removed in
@@ -83,18 +84,19 @@ license components for the not-ffmpeg package.
 %setup -q -n ffmpeg-n4.1.1-reduced
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1562102793
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1564768707
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
-export CXXFLAGS="$CXXFLAGS -fno-lto "
+export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
 %configure --disable-static --extra-ldflags='-ldl' \
 --disable-everything \
 --enable-avcodec \
@@ -137,7 +139,7 @@ export CXXFLAGS="$CXXFLAGS -fno-lto "
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1562102793
+export SOURCE_DATE_EPOCH=1564768707
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/not-ffmpeg
 cp COPYING.LGPLv2.1 %{buildroot}/usr/share/package-licenses/not-ffmpeg/COPYING.LGPLv2.1
