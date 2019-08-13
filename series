@@ -1,3 +1,4 @@
 0001-configure-do-not-die-if-unknown-option-is-found.patch
 0001-not-ffmpeg-fixes-to-compilation-for-this-version.patch
 CVE-2019-12730.patch
+CVE-2019-11339.patch

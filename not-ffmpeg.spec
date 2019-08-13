@@ -4,7 +4,7 @@
 #
 Name     : not-ffmpeg
 Version  : 4.1.1.reduced
-Release  : 18
+Release  : 19
 URL      : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-4.1.1-reduced.tar.xz
 Source0  : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-4.1.1-reduced.tar.xz
 Summary  : No detailed summary available
@@ -25,6 +25,7 @@ BuildRequires : rtmpdump-dev
 Patch1: 0001-configure-do-not-die-if-unknown-option-is-found.patch
 Patch2: 0001-not-ffmpeg-fixes-to-compilation-for-this-version.patch
 Patch3: CVE-2019-12730.patch
+Patch4: CVE-2019-11339.patch
 
 %description
 SPARC optimizations have been removed in
@@ -85,13 +86,14 @@ license components for the not-ffmpeg package.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1565298644
+export SOURCE_DATE_EPOCH=1565725556
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -139,7 +141,7 @@ export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1565298644
+export SOURCE_DATE_EPOCH=1565725556
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/not-ffmpeg
 cp COPYING.LGPLv2.1 %{buildroot}/usr/share/package-licenses/not-ffmpeg/COPYING.LGPLv2.1
