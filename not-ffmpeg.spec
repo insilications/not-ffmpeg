@@ -4,7 +4,7 @@
 #
 Name     : not-ffmpeg
 Version  : 4.1.1.reduced
-Release  : 21
+Release  : 22
 URL      : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-4.1.1-reduced.tar.xz
 Source0  : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-4.1.1-reduced.tar.xz
 Summary  : No detailed summary available
@@ -15,6 +15,7 @@ Requires: not-ffmpeg-data = %{version}-%{release}
 Requires: not-ffmpeg-lib = %{version}-%{release}
 Requires: not-ffmpeg-license = %{version}-%{release}
 BuildRequires : gmp-dev
+BuildRequires : libass-dev
 BuildRequires : pkgconfig(libmfx)
 BuildRequires : pkgconfig(libv4l2)
 BuildRequires : pkgconfig(libva)
@@ -29,9 +30,9 @@ Patch3: CVE-2019-12730.patch
 Patch4: CVE-2019-11339.patch
 
 %description
-SPARC optimizations have been removed in
-commit b4dd424d96f09f9bafb88e47f37df65dc4529143
-The last revission with the optimizations is fb1b70c1ed50951c5fc1a309c3c446b2eaaf564b
+BFIN optimizations have been removed in
+commit 880e2aa23645ed9871c66ee1cbd00f93c72d2d73
+The last revission with the optimizations is fa4e17c14035ebf43130fb369e1728cdd98d0b72
 
 %package bin
 Summary: bin components for the not-ffmpeg package.
@@ -94,7 +95,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1565752503
+export SOURCE_DATE_EPOCH=1565805987
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -144,7 +145,7 @@ export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1565752503
+export SOURCE_DATE_EPOCH=1565805987
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/not-ffmpeg
 cp COPYING.LGPLv2.1 %{buildroot}/usr/share/package-licenses/not-ffmpeg/COPYING.LGPLv2.1

@@ -12,3 +12,4 @@ libva.so.2
 libvorbis.so.0
 libvorbisenc.so.2
 libvpx.so.6
+libz.so.1
