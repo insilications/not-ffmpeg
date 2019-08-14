@@ -37,3 +37,5 @@
 --enable-network
 --enable-openssl
 --enable-librtmp
+--enable-libv4l2
+--enable-indev=v4l2

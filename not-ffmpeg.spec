@@ -4,7 +4,7 @@
 #
 Name     : not-ffmpeg
 Version  : 4.1.1.reduced
-Release  : 19
+Release  : 21
 URL      : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-4.1.1-reduced.tar.xz
 Source0  : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-4.1.1-reduced.tar.xz
 Summary  : No detailed summary available
@@ -16,6 +16,7 @@ Requires: not-ffmpeg-lib = %{version}-%{release}
 Requires: not-ffmpeg-license = %{version}-%{release}
 BuildRequires : gmp-dev
 BuildRequires : pkgconfig(libmfx)
+BuildRequires : pkgconfig(libv4l2)
 BuildRequires : pkgconfig(libva)
 BuildRequires : pkgconfig(openssl)
 BuildRequires : pkgconfig(sdl2)
@@ -93,7 +94,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1565725556
+export SOURCE_DATE_EPOCH=1565752503
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -137,11 +138,13 @@ export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved
 --enable-sdl2 \
 --enable-network \
 --enable-openssl \
---enable-librtmp
+--enable-librtmp \
+--enable-libv4l2 \
+--enable-indev=v4l2
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1565725556
+export SOURCE_DATE_EPOCH=1565752503
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/not-ffmpeg
 cp COPYING.LGPLv2.1 %{buildroot}/usr/share/package-licenses/not-ffmpeg/COPYING.LGPLv2.1

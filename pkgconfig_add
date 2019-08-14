@@ -6,3 +6,4 @@ openssl
 vorbis
 vpx
 sdl2
+libv4l2
