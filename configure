@@ -39,3 +39,4 @@
 --enable-librtmp
 --enable-libv4l2
 --enable-indev=v4l2
+--enable-libass
