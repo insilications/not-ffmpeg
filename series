@@ -1,2 +1,4 @@
 0001-configure-do-not-die-if-unknown-option-is-found.patch
 0001-not-ffmpeg-fixes-to-compilation-for-n-4.2.1-version.patch
+0001-not-ffmpeg-enable-h264_qsv-encoder-and-decoder.patch
+0001-add-fixes-for-demuxers-dnxhd-to-enable-mp4.patch

@@ -192,6 +192,9 @@ libavcodec.so.58:avpriv_align_put_bits
 libavcodec.so.58:avpriv_bprint_to_extradata
 libavcodec.so.58:avpriv_codec_get_cap_skip_frame_fill_param
 libavcodec.so.58:avpriv_copy_bits
+libavcodec.so.58:avpriv_dnxhd_get_frame_size
+libavcodec.so.58:avpriv_dnxhd_get_hr_frame_size
+libavcodec.so.58:avpriv_dnxhd_get_interlaced
 libavcodec.so.58:avpriv_exif_decode_ifd
 libavcodec.so.58:avpriv_find_pix_fmt
 libavcodec.so.58:avpriv_find_start_code
