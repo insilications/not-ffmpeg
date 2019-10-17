@@ -4,7 +4,7 @@
 #
 Name     : not-ffmpeg
 Version  : 4.2.1.reduced
-Release  : 34
+Release  : 35
 URL      : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-4.2.1-reduced.tar.xz
 Source0  : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-4.2.1-reduced.tar.xz
 Summary  : No detailed summary available
@@ -28,6 +28,7 @@ Patch1: 0001-configure-do-not-die-if-unknown-option-is-found.patch
 Patch2: 0001-not-ffmpeg-fixes-to-compilation-for-n-4.2.1-version.patch
 Patch3: 0001-not-ffmpeg-enable-h264_qsv-encoder-and-decoder.patch
 Patch4: 0001-add-fixes-for-demuxers-dnxhd-to-enable-mp4.patch
+Patch5: CVE-2019-15942.patch
 
 %description
 FFmpeg is a collection of libraries and tools to process multimedia content
@@ -88,6 +89,7 @@ license components for the not-ffmpeg package.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
