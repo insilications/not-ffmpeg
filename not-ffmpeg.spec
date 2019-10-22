@@ -4,7 +4,7 @@
 #
 Name     : not-ffmpeg
 Version  : 4.2.1.reduced
-Release  : 35
+Release  : 36
 URL      : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-4.2.1-reduced.tar.xz
 Source0  : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-4.2.1-reduced.tar.xz
 Summary  : No detailed summary available
@@ -16,6 +16,7 @@ Requires: not-ffmpeg-lib = %{version}-%{release}
 Requires: not-ffmpeg-license = %{version}-%{release}
 BuildRequires : gmp-dev
 BuildRequires : libass-dev
+BuildRequires : libtheora-dev
 BuildRequires : pkgconfig(libmfx)
 BuildRequires : pkgconfig(libv4l2)
 BuildRequires : pkgconfig(libva)
@@ -24,6 +25,7 @@ BuildRequires : pkgconfig(sdl2)
 BuildRequires : pkgconfig(vorbis)
 BuildRequires : pkgconfig(vpx)
 BuildRequires : rtmpdump-dev
+BuildRequires : util-linux
 Patch1: 0001-configure-do-not-die-if-unknown-option-is-found.patch
 Patch2: 0001-not-ffmpeg-fixes-to-compilation-for-n-4.2.1-version.patch
 Patch3: 0001-not-ffmpeg-enable-h264_qsv-encoder-and-decoder.patch
@@ -96,7 +98,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1571160180
+export SOURCE_DATE_EPOCH=1571781146
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -115,12 +117,12 @@ export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved
 --enable-muxer="crc,image2,jpeg,ogg,md5,nut,webm,webm_chunk,webm_dash_manifest,rawvideo,ivf,null,wav,framecrc,rtp,rtsp,ass,webvtt,mjpeg,framehash,hash,mp4" \
 --enable-bsf="mp3_header_decompress,vp9_superframe" \
 --enable-demuxer="mjpeg,image2,webm_dash_manifest,ogg,matroska,mp3,pcm_s16le,rawvideo,wav,mov,ivf,rtp,rtsp,flv,ass,subviewer,subviewer1,webvtt,h264,dnxhd" \
---enable-decoder="rawvideo,libvorbis,mjpeg,jpeg,opus,mp3,pcm_u8,pcm_s16le,pcm_s24le,pcm_s32le,pcm_f32le,pcm_s16be,pcm_s24be,pcm_mulaw,pcm_alaw,pcm_u24le,pcm_u32be,pcm_u32le,pgm,pgmyuv,libvpx_vp8,vp8_qsv,vp8,libvpx_vp9,vp9,tiff,bmp,wavpack,ass,saa,subviewer,subviewer1,webvtt,h264_qsv" \
---enable-encoder="rawvideo,wrapped_avframe,libvorbis,opus,yuv4,tiff,bmp,libvpx_vp8,vp8_vaapi,libvpx_vp9,vp9_vaapi,mjpeg_vaapi,pcm_u8,pcm_s16le,pcm_s24le,pcm_s32le,pcm_f32le,pcm_s16be,pcm_s24be,pcm_mulaw,pcm_alaw,pcm_u24le,pcm_u32be,pcm_u32le,ass,ssa,webvtt,mjpeg_qsv,h264_qsv" \
+--enable-decoder="rawvideo,libvorbis,mjpeg,jpeg,opus,mp3,pcm_u8,pcm_s16le,pcm_s24le,pcm_s32le,pcm_f32le,pcm_s16be,pcm_s24be,pcm_mulaw,pcm_alaw,pcm_u24le,pcm_u32be,pcm_u32le,pgm,pgmyuv,libvpx_vp8,vp8_qsv,vp8,libvpx_vp9,vp9,tiff,bmp,wavpack,ass,saa,subviewer,subviewer1,webvtt,h264_qsv,yuv4" \
+--enable-encoder="rawvideo,wrapped_avframe,libvorbis,opus,yuv4,tiff,bmp,libvpx_vp8,vp8_vaapi,libvpx_vp9,vp9_vaapi,mjpeg_vaapi,pcm_u8,pcm_s16le,pcm_s24le,pcm_s32le,pcm_f32le,pcm_s16be,pcm_s24be,pcm_mulaw,pcm_alaw,pcm_u24le,pcm_u32be,pcm_u32le,ass,ssa,webvtt,mjpeg_qsv,h264_qsv,libtheora" \
 --enable-hwaccel="vp8_vaapi,vp9_vaapi,mjpeg_vaapi" \
 --enable-parser="opus,libvorbis,vp3,vp8,vp9,mjpeg" \
 --enable-protocol="file,md5,pipe,rtp,tcp,http,https,httpproxy,ftp,librtmp,librtmpe,librtmps,librtmpt,librtmpte,rtmpe,rtmps,rtmpt,rtmpte,rtmpts" \
---enable-filter="aresample,asetpts,denoise_vaapi,deinterlace_vaapi,hwmap,hwupload,hwdownload,pixdesctest,procamp_vaapi,scale,scale_vaapi,sharpness_vaapi,color,format,subtitles,select,setpts" \
+--enable-filter="acopy,aresample,ashowinfo,aselect,asetpts,copy,denoise_vaapi,deinterlace_vaapi,hwmap,hwupload,hwdownload,pixdesctest,procamp_vaapi,scale,scale_vaapi,sharpness_vaapi,showinfo,color,format,subtitles,select,setpts" \
 --disable-error-resilience \
 --enable-pic \
 --enable-shared \
@@ -144,16 +146,17 @@ export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved
 --enable-libv4l2 \
 --enable-indev="v4l2" \
 --enable-outdev="sdl2" \
---enable-libass
+--enable-libass \
+--enable-libtheora
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1571160180
+export SOURCE_DATE_EPOCH=1571781146
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/not-ffmpeg
-cp COPYING.LGPLv2.1 %{buildroot}/usr/share/package-licenses/not-ffmpeg/COPYING.LGPLv2.1
-cp COPYING.LGPLv3 %{buildroot}/usr/share/package-licenses/not-ffmpeg/COPYING.LGPLv3
-cp LICENSE.md %{buildroot}/usr/share/package-licenses/not-ffmpeg/LICENSE.md
+cp %{_builddir}/ffmpeg-4.2.1-reduced/COPYING.LGPLv2.1 %{buildroot}/usr/share/package-licenses/not-ffmpeg/37d2f1d62fec4da0caf06e5da21afc3521b597aa
+cp %{_builddir}/ffmpeg-4.2.1-reduced/COPYING.LGPLv3 %{buildroot}/usr/share/package-licenses/not-ffmpeg/f45ee1c765646813b442ca58de72e20a64a7ddba
+cp %{_builddir}/ffmpeg-4.2.1-reduced/LICENSE.md %{buildroot}/usr/share/package-licenses/not-ffmpeg/9a405073a73ffff7c35e7ad37a3d6afbf99e1c6a
 %make_install
 
 %files
@@ -347,6 +350,6 @@ cp LICENSE.md %{buildroot}/usr/share/package-licenses/not-ffmpeg/LICENSE.md
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/not-ffmpeg/COPYING.LGPLv2.1
-/usr/share/package-licenses/not-ffmpeg/COPYING.LGPLv3
-/usr/share/package-licenses/not-ffmpeg/LICENSE.md
+/usr/share/package-licenses/not-ffmpeg/37d2f1d62fec4da0caf06e5da21afc3521b597aa
+/usr/share/package-licenses/not-ffmpeg/9a405073a73ffff7c35e7ad37a3d6afbf99e1c6a
+/usr/share/package-licenses/not-ffmpeg/f45ee1c765646813b442ca58de72e20a64a7ddba

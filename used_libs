@@ -8,6 +8,8 @@ libmfx.so.1
 libpthread.so.0
 librtmp.so.1
 libssl.so.1.1
+libtheoradec.so.1
+libtheoraenc.so.1
 libv4l2.so.0
 libva-drm.so.2
 libva.so.2
