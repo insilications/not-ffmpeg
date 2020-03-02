@@ -4,7 +4,7 @@
 #
 Name     : not-ffmpeg
 Version  : 4.2.1.reduced
-Release  : 39
+Release  : 40
 URL      : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-4.2.1-reduced.tar.xz
 Source0  : http://localhost/cgit/projects/ffmpeg/snapshot/ffmpeg-4.2.1-reduced.tar.xz
 Summary  : No detailed summary available
@@ -31,7 +31,8 @@ Patch1: 0001-configure-do-not-die-if-unknown-option-is-found.patch
 Patch2: 0001-not-ffmpeg-fixes-to-compilation-for-n-4.2.1-version.patch
 Patch3: 0001-not-ffmpeg-enable-h264_qsv-encoder-and-decoder.patch
 Patch4: 0001-add-fixes-for-demuxers-dnxhd-to-enable-mp4.patch
-Patch5: CVE-2019-15942.patch
+Patch5: 0005-lavx_qsv-Fix_MSDK_initialization_failure_in_system_memory.patch
+Patch6: CVE-2019-15942.patch
 
 %description
 FFmpeg is a collection of libraries and tools to process multimedia content
@@ -94,13 +95,14 @@ cd %{_builddir}/ffmpeg-4.2.1-reduced
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1582744373
+export SOURCE_DATE_EPOCH=1583170890
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -154,7 +156,7 @@ export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1582744373
+export SOURCE_DATE_EPOCH=1583170890
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/not-ffmpeg
 cp %{_builddir}/ffmpeg-4.2.1-reduced/COPYING.LGPLv2.1 %{buildroot}/usr/share/package-licenses/not-ffmpeg/37d2f1d62fec4da0caf06e5da21afc3521b597aa
