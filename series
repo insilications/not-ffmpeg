@@ -4,3 +4,5 @@
 0001-add-fixes-for-demuxers-dnxhd-to-enable-mp4.patch
 0005-lavx_qsv-Fix_MSDK_initialization_failure_in_system_memory.patch
 CVE-2019-15942.patch
+CVE-2020-12284.patch
+CVE-2020-13904.patch
