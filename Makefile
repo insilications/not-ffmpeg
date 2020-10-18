@@ -1,5 +1,5 @@
 PKG_NAME := not-ffmpeg
-URL = $(CGIT_BASE_URL)/projects/ffmpeg/snapshot/ffmpeg-4.2.1-reduced.tar.xz
+URL = https://github.com/insilications/ffmpeg-clr.git
 ARCHIVES = 
 
 include ../common/Makefile.common
