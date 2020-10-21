@@ -707,9 +707,9 @@ make install-libffmpeg V=1 VERBOSE=1 DESTDIR=%{buildroot}
 
 %files bin
 %defattr(-,root,root,-)
-/usr/bin/ffmpeg
-/usr/bin/ffplay
-/usr/bin/ffprobe
+%exclude /usr/bin/ffmpeg
+%exclude /usr/bin/ffplay
+%exclude /usr/bin/ffprobe
 
 %files data
 %defattr(-,root,root,-)
